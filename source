@@ -371,6 +371,7 @@ function firstld()
 				..  "\n  "	
 				..  "\n  - Disable / Enable key: H or F8"	
 				..  "\n  - Owner discord: kirv_zz"
+				..  "\n  - Version 1.4"	
 			)
 		end
 	end
