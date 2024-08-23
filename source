@@ -67,7 +67,7 @@ local bGyro: AlignOrientation = part:WaitForChild("ADONIS_FLIGHT_GYRO")
 local speedVal = script:WaitForChild("Speed")
 local noclip = script:WaitForChild("Noclip")
 local Create = Instance.new
-local flying = true
+local flying = false
 
 local keyTab = {}
 local dir = {}
@@ -245,7 +245,7 @@ function HandleInput(input, isGame, bool)
 			elseif input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.DPadUp then
 				keyTab.Up = bool
 				dir.Up = bool
-			elseif input.KeyCode == Enum.KeyCode.H or input.KeyCode == Enum.KeyCode.ButtonL3 then
+			elseif (input.KeyCode == Enum.KeyCode.H or input.KeyCode == Enum.KeyCode.F8) or input.KeyCode == Enum.KeyCode.ButtonL3 then
 				Toggle()
 			end
 		end
@@ -351,3 +351,16 @@ if inputService.TouchEnabled then
 		contextService:UnbindAction("Toggle Flight")
 	end
 end
+
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Script",Text = "Script successfuly loaded, press F9 to open console tip",Duration = 5})
+print("\n\n"
+	..	"\n	 ███████╗██╗░░░░░██╗░██████╗░██╗░░██╗████████╗"
+	..	"\n	 ██╔════╝██║░░░░░██║██╔════╝░██║░░██║╚══██╔══╝"
+	..	"\n	 █████╗░░██║░░░░░██║██║░░██╗░███████║░░░██║░░░"
+	..	"\n	 ██╔══╝░░██║░░░░░██║██║░░╚██╗██╔══██║░░░██║░░░"
+	..	"\n	 ██║░░░░░███████╗██║╚██████╔╝██║░░██║░░░██║░░░"
+	..	"\n	 ╚═╝░░░░░╚══════╝╚═╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░"
+	..  "\n  "	
+	..  "\n  - Disable / Enable key: H or F8"	
+	..  "\n  - Owner discord: kirv_zz"
+)
