@@ -356,11 +356,10 @@ end
 
 local PLY = game.Players.LocalPlayer
 local CHAR = PLY.Character
-function firstld()
-	if CHAR:FindFirstChild("HumanoidRootPart") then
-		if not CHAR:FindFirstChild("ADONIS_FLIGHT_POSITION") or not CHAR:FindFirstChild("ADONIS_FLIGHT_GYRO") then
-			load()
-			game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Script",Text = "Script successfuly loaded, press F9 to open console tip",Duration = 5})
+if not game:GetService("ReplicatedStorage"):FindFirstChild("THEXXXSRT") then
+local TXS = Instance.new("StringValue",game:GetService("ReplicatedStorage"))
+TXS.Name = "THEXXXSRT"
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Script",Text = "Script successfuly loaded, press F9 to open console tip",Duration = 5})
 			print("\n\n"
 				..	"\n	 ███████╗██╗░░░░░██╗░██████╗░██╗░░██╗████████╗"
 				..	"\n	 ██╔════╝██║░░░░░██║██╔════╝░██║░░██║╚══██╔══╝"
@@ -373,10 +372,5 @@ function firstld()
 				..  "\n  - Owner discord: kirv_zz"
 				..  "\n  - Version 1.4"	
 			)
-		end
-	end
-end
-if CHAR then
-	firstld()
 end
 PLY.CharacterAdded:Connect(load)
