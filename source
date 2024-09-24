@@ -45,6 +45,7 @@ if _G.loadedflx98284195 == false then
 	end
 
 	function m.load()
+		print("test")
 		local charx = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
 		local part = charx:FindFirstChild("HumanoidRootPart")
 
