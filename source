@@ -1,6 +1,50 @@
+local m = {};
 
-local function load()
-	local part = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+_G.FlightKey = Enum.KeyCode.H
+_G.ScriptKey = Enum.KeyCode.F8
+_G.FlightSpeed = 1.5
+_G.FlightNoclip = true
+
+
+
+m.ScriptEnabled = false
+function m.check()
+	if m.ScriptEnabled == true then
+		m.ScriptEnabled = false
+		m.clear()
+	else
+		m.ScriptEnabled = true
+		m.load()
+	end
+end
+
+function m.clear()
+	local charx = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+	local part = charx:FindFirstChild("HumanoidRootPart")
+
+	if part then
+		local oldp = part:FindFirstChild("ADONIS_FLIGHT_POSITION")
+		local oldpa = part:FindFirstChild("ADONIS_FLIGHT_POSITION_ATTACHMENT")
+		local oldg = part:FindFirstChild("ADONIS_FLIGHT_GYRO")
+		local oldga = part:FindFirstChild("ADONIS_FLIGHT_GYRO_ATTACHMENT")
+		local olds = part:FindFirstChild("ADONIS_FLIGHT")
+		if oldp then oldp:Destroy() end
+		if oldpa then oldpa:Destroy() end
+		if oldg then oldg:Destroy() end
+		if oldga then oldga:Destroy() end
+		if olds then olds:Destroy() end
+
+		local sp = script:FindFirstChild("Noclip")
+		local nc = script:FindFirstChild("Speed")
+		if sp then sp:Destroy() end
+		if nc then nc:Destroy() end
+	end
+end
+
+function m.load()
+	local charx = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+	local part = charx:FindFirstChild("HumanoidRootPart")
+
 	if part then
 		local oldp = part:FindFirstChild("ADONIS_FLIGHT_POSITION")
 		local oldpa = part:FindFirstChild("ADONIS_FLIGHT_POSITION_ATTACHMENT")
@@ -39,13 +83,12 @@ local function load()
 		flightGyro.Parent = part
 
 		local x114 = Instance.new("BoolValue",script)
-		x114.Value = true
+		x114.Value = _G.FlightNoclip
 		x114.Name = "Noclip"
 		local x115 = Instance.new("NumberValue",script)
-		x115.Value = 3
+		x115.Value = _G.FlightSpeed
 		x115.Name = "Speed"
-	else
-		print("Something wrong?")
+
 	end
 
 	script.Parent = part
@@ -248,7 +291,7 @@ local function load()
 				elseif input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.DPadUp then
 					keyTab.Up = bool
 					dir.Up = bool
-				elseif (input.KeyCode == Enum.KeyCode.H) or input.KeyCode == Enum.KeyCode.ButtonL3 then
+				elseif (input.KeyCode == _G.FlightKey) or input.KeyCode == Enum.KeyCode.ButtonL3 then
 					Toggle()
 				end
 			end
@@ -355,39 +398,11 @@ local function load()
 		end
 	end
 end
-wait(0.3)
-local PLY = game.Players.LocalPlayer
-local inputService = game:GetService("UserInputService")
-inputService.InputBegan:Connect(function(input)
-	if input.KeyCode == Enum.KeyCode.F8 then
-		if PLY.Character:FindFirstChild("HumanoidRootPart") then
-			if not (PLY.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("ADONIS_FLIGHT_POSITION") and PLY.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("ADONIS_FLIGHT_GYRO")) then
-				load()
-			end
-		end
+
+local xzxx = game.UserInputService
+m.check()
+xzxx.InputBegan:Connect(function(i)
+	if i.KeyCode == _G.ScriptKey then
+		m.check()
 	end
 end)
-if not game:GetService("ReplicatedStorage"):FindFirstChild("THEXXXSRT") then
-	wait(0.5)
-	if PLY.Character then
-		load()
-	else
-		print("Waiting until player will be loaded.")
-	end
-	local TXS = Instance.new("StringValue",game:GetService("ReplicatedStorage"))
-	TXS.Name = "THEXXXSRT"
-	game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Script",Text = "Script successfuly loaded, press F9 to open console tip",Duration = 5})
-	print("\n\n"
-		..	"\n	 ███████╗██╗░░░░░██╗░██████╗░██╗░░██╗████████╗"
-		..	"\n	 ██╔════╝██║░░░░░██║██╔════╝░██║░░██║╚══██╔══╝"
-		..	"\n	 █████╗░░██║░░░░░██║██║░░██╗░███████║░░░██║░░░"
-		..	"\n	 ██╔══╝░░██║░░░░░██║██║░░╚██╗██╔══██║░░░██║░░░"
-		..	"\n	 ██║░░░░░███████╗██║╚██████╔╝██║░░██║░░░██║░░░"
-		..	"\n	 ╚═╝░░░░░╚══════╝╚═╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░"
-		..  "\n  "	
-		..  "\n  - Disable / Enable key: K"	
-		..  "\n  - Load fly key: F8"	
-		..  "\n  - Owner discord: kirv_zz"
-		..  "\n  - Version 1.1.8"	
-	)
-end
