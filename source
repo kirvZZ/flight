@@ -4,9 +4,14 @@
 	local config = {
 		FlightKey = Enum.KeyCode.H,
 		ScriptKey = Enum.KeyCode.F8,
-		FlightSpeed = 4,
+		FlightSpeed = 2,
 		FlightNoclip = true,
 	};
+
+	_G.FlightKey = Enum.KeyCode.H
+	_G.ScriptKey = Enum.KeyCode.F8
+	_G.FlightSpeed = 2
+	_G.FlightNoclip = true
 
 	function m.startup()
 		--	game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Script",Text = "Script successfuly loaded, press F9 to open console tip",Duration = 5})
@@ -51,7 +56,7 @@
 	m.startup()
 
 	game.UserInputService.InputBegan:Connect(function(i)
-		if i.KeyCode == config.ScriptKey then
+		if i.KeyCode == _G.ScriptKey then
 			print(m.ScriptEnabled)
 			m.check()
 		end
@@ -123,10 +128,10 @@
 			flightGyro.Parent = part
 
 			local x114 = Instance.new("BoolValue",script)
-			x114.Value = config.FlightNoclip
+			x114.Value = _G.FlightNoclip
 			x114.Name = "Noclip"
 			local x115 = Instance.new("NumberValue",script)
-			x115.Value = config.FlightSpeed
+			x115.Value = _G.FlightSpeed
 			x115.Name = "Speed"
 
 		end
@@ -331,7 +336,7 @@
 					elseif input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.DPadUp then
 						keyTab.Up = bool
 						dir.Up = bool
-					elseif (input.KeyCode == config.FlightKey) or input.KeyCode == Enum.KeyCode.ButtonL3 then
+					elseif (input.KeyCode == _G.FlightKey) or input.KeyCode == Enum.KeyCode.ButtonL3 then
 						Toggle()
 					end
 				end
